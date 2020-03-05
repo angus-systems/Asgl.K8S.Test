@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "asglk8stestweb.fullname" . }}
+  labels:
+    app: {{ template "asglk8stestweb.name" . }}
+    chart: {{ template "asglk8stestweb.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "asglk8stestweb.name" . }}
+    release: {{ .Release.Name }}
